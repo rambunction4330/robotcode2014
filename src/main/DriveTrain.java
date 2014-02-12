@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj.SpeedController;
  *
  * @author Amanda Steiner
  */
+//somenewcode
 public class DriveTrain {
-    private Thread driveThread= new DriveThread();
     private SpeedController rightmf;
     private SpeedController rightmb;
     private SpeedController leftmf;

@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Timer;
 
 
 /**
@@ -30,24 +31,31 @@ public class ArmMotor {
     }
     
     public void setArm() {
-        if (!lim.get()) {
-            one.set(.5);
-            two.set(.5);
-        } else {
-            one.set(0);
-            two.set(0);
+        rac.set(Relay.Value.kForward);
+        while (!lim.get())
+        {
+            one.set(-.7);
+            two.set(-.7);
         }
+        one.set(0);
+        two.set(0);
+        rac.set(Relay.Value.kOff);
     }
     
-    public void releaseArm() {
+    public void throwArm() {
+        rac.set(Relay.Value.kReverse);
+        Timer.delay(1);
+        rac.set(Relay.Value.kOff);
+    }
+    
+    /*public void releaseArm() {
         rac.set(Relay.Value.kForward);
     }
     
     public void engageArm() {
         rac.set(Relay.Value.kReverse);
     }
-    
     public void stopArm() {
         rac.set(Relay.Value.kOff);
-    }
+    }*/
 }

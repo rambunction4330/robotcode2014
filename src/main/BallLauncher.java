@@ -42,25 +42,27 @@ public class BallLauncher extends SimpleRobot {
     }
 
     public void operatorControl() {
-       new Thread(){
-           public void run(){
+        new Thread(){
+            public void run(){
                 while (isEnabled()) {
-            dT.setWheels(right.getAxis(Joystick.AxisType.kY), left.getAxis(Joystick.AxisType.kY));
+                    dT.setWheels(right.getAxis(Joystick.AxisType.kY), left.getAxis(Joystick.AxisType.kY));
                 }
-           }
-       }.start();
-        while (isEnabled()) {
-            if (right.getRawButton(2)) {
-                arm.setArm();
             }
-            if (right.getRawButton(5)) {
-                arm.releaseArm();
-            } else if (right.getRawButton(3)) {
-                arm.engageArm();
-            } else {
-                arm.stopArm();
+        }.start();
+        new Thread(){
+            public void run(){
+                while (isEnabled()) {
+                    if (right.getRawButton(2))
+                    {
+                        arm.setArm();
+                    }
+                    else if (right.getRawButton(1))
+                    {
+                        arm.throwArm();
+                    }
+                }
             }
-        }
+        }.start();
     }
     
     public void test() {

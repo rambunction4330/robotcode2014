@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Timer;
 
 
 /**
@@ -32,31 +33,17 @@ public class ArmMotor {
     }
     
     public void setArm() {
-<<<<<<< OURS
         rac.set(Relay.Value.kForward);
-        one.set(-1);
-        two.set(-1);
-        while (!lim.get()) {// || override
-            one.set(0);
-            two.set(0);
-            rac.set(Relay.Value.kOff);
-            override = false;
-=======
-        if (!lim.get()) {
-            one.set(.5);
-            two.set(.5);
-        } else {
-            one.set(0);
-            two.set(0);
->>>>>>> THEIRS
-        }
-    }
-    
-<<<<<<< OURS
-    public void forceArmStop()
+        override = false;
+        while (!(lim.get() || override))
         {
-            override = true;
+            one.set(-.7);
+            two.set(-.7);
         }
+        one.set(0);
+        two.set(0);
+        rac.set(Relay.Value.kOff);
+    }
     
     public void throwArm() {
         rac.set(Relay.Value.kReverse);
@@ -64,18 +51,19 @@ public class ArmMotor {
         rac.set(Relay.Value.kOff);
     }
     
+    public void forceOverride()
+    {
+        override = true;
+    }
+    
     /*public void releaseArm() {
-=======
-    public void releaseArm() {
->>>>>>> THEIRS
         rac.set(Relay.Value.kForward);
     }
     
     public void engageArm() {
         rac.set(Relay.Value.kReverse);
     }
-    
     public void stopArm() {
         rac.set(Relay.Value.kOff);
-    }
+    }*/
 }

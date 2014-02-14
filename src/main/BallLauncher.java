@@ -10,8 +10,8 @@ package main;
 
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
 /**
 * @author Amanda & Shen 
@@ -19,75 +19,64 @@ import edu.wpi.first.wpilibj.Watchdog;
 public class BallLauncher extends SimpleRobot {
     DriveTrain dT = new DriveTrain();
     ArmMotor arm = new ArmMotor();
-    //VisionProcessor vP = new VisionProcessor();
+    VisionProcessor vP = new VisionProcessor();
     Joystick right = new Joystick(Map.joystickRight);
     Joystick left = new Joystick(Map.joystickLeft);
     //Encoder ec = new Encoder(Map.encoderone, Map.encodertwo);
     
     public void autonomous() {
-        /*while (isEnabled()) {
-            //if (vP.leftOrRight() == 1) {
-            if (right.getAxis(Joystick.AxisType.kY) < -.1) {
+        while (isEnabled()) {
+            if (vP.leftOrRight() == 1) {
+            //if (right.getAxis(Joystick.AxisType.kY) < -.1) {
                 dT.setWheels(-.6, .6);
             }
-            //if (vP.leftOrRight() == 2) {
-            if (right.getAxis(Joystick.AxisType.kY) > .1) {
+            if (vP.leftOrRight() == 2) {
+            //if (right.getAxis(Joystick.AxisType.kY) > .1) {
                 dT.setWheels(.6, -.6);
             }
-            //if (vP.leftOrRight() == 0) {
-            else {
+            if (vP.leftOrRight() == 0) {
                 dT.setWheels(0, 0);
-            }*/
+                arm.setArm();
+                arm.forceOverride();
+                Timer.delay(2);
+                arm.throwArm();
+            }
         //Make it shoot laters.
-        //}
+        }
+        
     }
 
     public void operatorControl() {
-       new Thread(){
-           public void run(){
+        new Thread(){
+            public void run(){
                 while (isEnabled()) {
-<<<<<<< OURS
                     dT.setWheels(right.getAxis(Joystick.AxisType.kY), left.getAxis(Joystick.AxisType.kY));
-               //     if (right.getRawButton(3))
-               //     {
-              //          arm.forceArmStop();
-             //       }
-=======
-            dT.setWheels(right.getAxis(Joystick.AxisType.kY), left.getAxis(Joystick.AxisType.kY));
->>>>>>> THEIRS
+                    if (buttons(3)) {
+                        arm.forceOverride();
+                    }
                 }
-           }
-       }.start();
-        while (isEnabled()) {
-            if (right.getRawButton(2)) {
-                arm.setArm();
             }
         }.start();
         new Thread(){
             public void run(){
                 while (isEnabled()) {
-                    if (right.getRawButton(2))
+                    if (buttons(2))
                     {
-                        System.out.println("Set Arm");
                         arm.setArm();
                     }
-                    else if (right.getRawButton(1))
+                    else if (buttons(1))
                     {
                         arm.throwArm();
                     }
                 }
-=======
-            if (right.getRawButton(5)) {
-                arm.releaseArm();
-            } else if (right.getRawButton(3)) {
-                arm.engageArm();
-            } else {
-                arm.stopArm();
->>>>>>> THEIRS
             }
-        }
+        }.start();
     }
     
     public void test() {
+    }
+    
+    public boolean buttons(int x) {
+        return right.getRawButton(x) || left.getRawButton(x);
     }
 }

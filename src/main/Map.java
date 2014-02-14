@@ -19,9 +19,11 @@ public class Map {
     //Relays
     public static final int ledPort = 2;
     public static final int armRachet = 6;
-    public static final int shooterDownLimit = 14;
     //Digital in
-    public static final int encoderOne = 9;
-    public static final int encoderTwo = 10;
+    public static final int shooterDownLimit = 14;
+    public static final int encoderOneA = 1;
+    public static final int encoderOneB = 2;
+    public static final int encoderTwoA = 3;
+    public static final int encoderTwoB = 4;
     
 }

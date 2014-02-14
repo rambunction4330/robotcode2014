@@ -22,25 +22,32 @@ public class ArmMotor {
     private SpeedController two;
     private Relay rac;
     private DigitalInput lim;
+    private boolean override;
     
     public ArmMotor() {
         one = new Jaguar(Map.armMotorOne);
         two = new Jaguar(Map.armMotorTwo);
         rac = new Relay(Map.armRachet);
         lim = new DigitalInput(Map.shooterDownLimit);
+        override = false;
     }
     
     public void setArm() {
         rac.set(Relay.Value.kForward);
-        while (!lim.get())
-        {
-            one.set(-.7);
-            two.set(-.7);
+        one.set(-1);
+        two.set(-1);
+        while (!lim.get()) {// || override
+            one.set(0);
+            two.set(0);
+            rac.set(Relay.Value.kOff);
+            override = false;
         }
-        one.set(0);
-        two.set(0);
-        rac.set(Relay.Value.kOff);
     }
+    
+    public void forceArmStop()
+        {
+            override = true;
+        }
     
     public void throwArm() {
         rac.set(Relay.Value.kReverse);

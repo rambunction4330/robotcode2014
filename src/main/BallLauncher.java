@@ -10,6 +10,7 @@ package main;
 
 //import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Watchdog;
 /**
@@ -24,7 +25,7 @@ public class BallLauncher extends SimpleRobot {
     //Encoder ec = new Encoder(Map.encoderone, Map.encodertwo);
     
     public void autonomous() {
-        while (isEnabled()) {
+        /*while (isEnabled()) {
             //if (vP.leftOrRight() == 1) {
             if (right.getAxis(Joystick.AxisType.kY) < -.1) {
                 dT.setWheels(-.6, .6);
@@ -36,9 +37,9 @@ public class BallLauncher extends SimpleRobot {
             //if (vP.leftOrRight() == 0) {
             else {
                 dT.setWheels(0, 0);
-            }
+            }*/
         //Make it shoot laters.
-        }
+        //}
     }
 
     public void operatorControl() {
@@ -46,6 +47,10 @@ public class BallLauncher extends SimpleRobot {
             public void run(){
                 while (isEnabled()) {
                     dT.setWheels(right.getAxis(Joystick.AxisType.kY), left.getAxis(Joystick.AxisType.kY));
+               //     if (right.getRawButton(3))
+               //     {
+              //          arm.forceArmStop();
+             //       }
                 }
             }
         }.start();
@@ -54,6 +59,7 @@ public class BallLauncher extends SimpleRobot {
                 while (isEnabled()) {
                     if (right.getRawButton(2))
                     {
+                        System.out.println("Set Arm");
                         arm.setArm();
                     }
                     else if (right.getRawButton(1))

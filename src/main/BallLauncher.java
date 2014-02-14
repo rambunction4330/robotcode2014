@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 /**
 * @author Amanda & Shen 
 */
@@ -22,6 +23,8 @@ public class BallLauncher extends SimpleRobot {
     VisionProcessor vP = new VisionProcessor();
     Joystick right = new Joystick(Map.joystickRight);
     Joystick left = new Joystick(Map.joystickLeft);
+    NetworkTable nettable = NetworkTable.getTable("SmartDashboard");
+    boolean backwards = false;
     //Encoder ec = new Encoder(Map.encoderone, Map.encodertwo);
     
     public void autonomous() {
@@ -50,9 +53,19 @@ public class BallLauncher extends SimpleRobot {
         new Thread(){
             public void run(){
                 while (isEnabled()) {
-                    dT.setWheels(right.getAxis(Joystick.AxisType.kY), left.getAxis(Joystick.AxisType.kY));
+                    if (backwards) {
+                        dT.setWheelsBackwards(right.getAxis(Joystick.AxisType.kY), left.getAxis(Joystick.AxisType.kY));
+                    }
+                    else {
+                        dT.setWheels(right.getAxis(Joystick.AxisType.kY), left.getAxis(Joystick.AxisType.kY));
+
+                    }
                     if (buttons(3)) {
                         arm.forceOverride();
+                    }
+                    if (buttons(10)) {
+                        backwards=!backwards;
+                        nettable.putString("Front", backwards ? "arm/back":"normal");
                     }
                 }
             }

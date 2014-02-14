@@ -32,4 +32,11 @@ public class DriveTrain {
         leftmf.set(yLeft*-Map.speedConstant);
         leftmb.set(yLeft*-Map.speedConstant);
     }
+    
+    public void setWheelsBackwards(double yRight, double yLeft) {
+        rightmf.set(yRight*-Map.speedConstant);
+        rightmb.set(yRight*-Map.speedConstant);
+        leftmf.set(yLeft*Map.speedConstant);
+        leftmb.set(yLeft*Map.speedConstant);
+    }
 }

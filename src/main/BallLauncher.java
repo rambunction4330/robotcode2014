@@ -37,7 +37,7 @@ public class BallLauncher extends SimpleRobot {
                 {
                     public void run()
                     {
-                        Timer.delay(1);
+                        Timer.delay(2);
                         arm.forceOverride();
                     }
                 }.start();
@@ -46,12 +46,21 @@ public class BallLauncher extends SimpleRobot {
             }
             if (vP.leftOrRight() == 2) {
             //if (right.getAxis(Joystick.AxisType.kY) > .1) {
-                dT.setWheels(0, -0);
+                dT.setWheels(0, 0);
+                new Thread()
+                {
+                    public void run()
+                    {
+                        Timer.delay(2);
+                        arm.forceOverride();
+                    }
+                }.start();
+                arm.setArm();
+                arm.throwArm();
             }
             if (vP.leftOrRight() == 0) {
                 dT.setWheels(0, -0);
             }
-        //Make it shoot laters.
         }
         
     }

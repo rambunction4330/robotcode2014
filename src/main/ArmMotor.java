@@ -34,19 +34,19 @@ public class ArmMotor {
         lim = new DigitalInput(Map.shooterDownLimit);
         override = false;
         nettable = NetworkTable.getTable("SmartDashboard");
-        displaylimit = new Thread(){
+        new Thread(){
             public void run(){
                 while(true) {
                 //while(runthread) {
-                    nettable.putBoolean("Shooter Limit Switch Pressed", lim.get());
+                        nettable.putBoolean("Shooter Limit Switch Pressed", lim.get());
                     }
                 }
-            };
+            }.start();
     }
     
     public void setArm() {
         //boolean runthread = true;
-        displaylimit.start();
+        //displaylimit.start();
         rac.set(Relay.Value.kForward);
         override = false;
         while (!(lim.get() || override))
@@ -57,7 +57,7 @@ public class ArmMotor {
         one.set(0);
         two.set(0);
         rac.set(Relay.Value.kOff);
-        displaylimit.interrupt();
+        //displaylimit.interrupt();
         //runthread = false;
     }
     

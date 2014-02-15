@@ -25,6 +25,7 @@ public class ArmMotor {
     private DigitalInput lim;
     private boolean override;
     private NetworkTable nettable;
+    private Thread displaylimit;
     
     public ArmMotor() {
         one = new Jaguar(Map.armMotorOne);
@@ -33,11 +34,7 @@ public class ArmMotor {
         lim = new DigitalInput(Map.shooterDownLimit);
         override = false;
         nettable = NetworkTable.getTable("SmartDashboard");
-    }
-    
-    public void setArm() {
-        //boolean runthread = true;
-        Thread displaylimit = new Thread(){
+        displaylimit = new Thread(){
             public void run(){
                 while(true) {
                 //while(runthread) {
@@ -45,6 +42,10 @@ public class ArmMotor {
                     }
                 }
             };
+    }
+    
+    public void setArm() {
+        //boolean runthread = true;
         displaylimit.start();
         rac.set(Relay.Value.kForward);
         override = false;

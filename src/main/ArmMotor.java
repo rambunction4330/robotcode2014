@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 
 
 /**
@@ -23,6 +24,7 @@ public class ArmMotor {
     private Relay rac;
     private DigitalInput lim;
     private boolean override;
+    private NetworkTable nettable;
     
     public ArmMotor() {
         one = new Jaguar(Map.armMotorOne);
@@ -30,9 +32,20 @@ public class ArmMotor {
         rac = new Relay(Map.armRachet);
         lim = new DigitalInput(Map.shooterDownLimit);
         override = false;
+        nettable = NetworkTable.getTable("SmartDashboard");
     }
     
     public void setArm() {
+        //boolean runthread = true;
+        Thread displaylimit = new Thread(){
+            public void run(){
+                while(true) {
+                //while(runthread) {
+                    nettable.putBoolean("Shooter Limit Switch Pressed", lim.get());
+                    }
+                }
+            };
+        displaylimit.start();
         rac.set(Relay.Value.kForward);
         override = false;
         while (!(lim.get() || override))
@@ -43,6 +56,8 @@ public class ArmMotor {
         one.set(0);
         two.set(0);
         rac.set(Relay.Value.kOff);
+        displaylimit.interrupt();
+        //runthread = false;
     }
     
     public void throwArm() {

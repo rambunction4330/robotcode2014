@@ -32,18 +32,24 @@ public class BallLauncher extends SimpleRobot {
         while (isEnabled()) {
             if (vP.leftOrRight() == 1) {
             //if (right.getAxis(Joystick.AxisType.kY) < -.1) {
-                dT.setWheels(-.6, .6);
+                dT.setWheels(0, 0);
+                new Thread()
+                {
+                    public void run()
+                    {
+                        Timer.delay(1);
+                        arm.forceOverride();
+                    }
+                }.start();
+                arm.setArm();
+                arm.throwArm();
             }
             if (vP.leftOrRight() == 2) {
             //if (right.getAxis(Joystick.AxisType.kY) > .1) {
-                dT.setWheels(.6, -.6);
+                dT.setWheels(0, -0);
             }
             if (vP.leftOrRight() == 0) {
-                dT.setWheels(0, 0);
-                arm.setArm();
-                arm.forceOverride();
-                Timer.delay(2);
-                arm.throwArm();
+                dT.setWheels(0, -0);
             }
         //Make it shoot laters.
         }

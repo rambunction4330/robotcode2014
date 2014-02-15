@@ -18,7 +18,7 @@ public class Map {
     public static final int joystickLeft = 2;
     public static final int joystickShooter = 3;
     //Relays
-    public static final int ledPort = 2;
+    public static final int ledPort = 3;
     public static final int armRachet = 6;
     //Digital in
     public static final int shooterDownLimit = 14;

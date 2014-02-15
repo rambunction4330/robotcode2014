@@ -29,7 +29,6 @@ public class BallLauncher extends SimpleRobot {
     //Hello GIT is now operational
     
     public void autonomous() {
-        while (isEnabled()) {
             if (vP.leftOrRight() == 1) {
             //if (right.getAxis(Joystick.AxisType.kY) < -.1) {
                 dT.setWheels(0, 0);
@@ -37,7 +36,7 @@ public class BallLauncher extends SimpleRobot {
                 {
                     public void run()
                     {
-                        Timer.delay(2);
+                        Timer.delay(2.5);
                         arm.forceOverride();
                     }
                 }.start();
@@ -51,7 +50,7 @@ public class BallLauncher extends SimpleRobot {
                 {
                     public void run()
                     {
-                        Timer.delay(2);
+                        Timer.delay(2.5);
                         arm.forceOverride();
                     }
                 }.start();
@@ -61,8 +60,6 @@ public class BallLauncher extends SimpleRobot {
             if (vP.leftOrRight() == 0) {
                 dT.setWheels(0, -0);
             }
-        }
-        
     }
 
     public void operatorControl() {

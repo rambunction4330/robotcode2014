@@ -23,6 +23,7 @@ public class BallLauncher extends SimpleRobot {
     VisionProcessor vP = new VisionProcessor();
     Joystick right = new Joystick(Map.joystickRight);
     Joystick left = new Joystick(Map.joystickLeft);
+    Joystick shoot = new Joystick(Map.joystickShooter);
     NetworkTable nettable = NetworkTable.getTable("SmartDashboard");
     boolean backwards = false;
     //Encoder ec = new Encoder(Map.encoderone, Map.encodertwo);
@@ -64,7 +65,7 @@ public class BallLauncher extends SimpleRobot {
                     if (buttons(3)) {
                         arm.forceOverride();
                     }
-                    if (buttons(10)) {
+                    if (buttons(11)) {
                         backwards=!backwards;
                         nettable.putString("Front", backwards ? "arm/back":"normal");
                     }
@@ -91,6 +92,6 @@ public class BallLauncher extends SimpleRobot {
     }
     
     public boolean buttons(int x) {
-        return right.getRawButton(x) || left.getRawButton(x);
+        return shoot.getRawButton(x);
     }
 }

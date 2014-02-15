@@ -16,6 +16,7 @@ public class Map {
     //Joystics
     public static final int joystickRight = 1;
     public static final int joystickLeft = 2;
+    public static final int joystickShooter = 3;
     //Relays
     public static final int ledPort = 2;
     public static final int armRachet = 6;

@@ -26,6 +26,7 @@ public class BallLauncher extends SimpleRobot {
     NetworkTable nettable = NetworkTable.getTable("SmartDashboard");
     boolean backwards = false;
     //Encoder ec = new Encoder(Map.encoderone, Map.encodertwo);
+    //Hello GIT is now operational
     
     public void autonomous() {
         while (isEnabled()) {

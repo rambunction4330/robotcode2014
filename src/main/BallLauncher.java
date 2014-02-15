@@ -8,7 +8,7 @@
 package main;
 
 
-//import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -25,11 +25,11 @@ public class BallLauncher extends SimpleRobot {
     Joystick left = new Joystick(Map.joystickLeft);
     Joystick shoot = new Joystick(Map.joystickShooter);
     NetworkTable nettable = NetworkTable.getTable("SmartDashboard");
-    //Encoder ec = new Encoder(Map.encoderone, Map.encodertwo);
-    //Hello GIT is now operational
+    Encoder encA = new Encoder(Map.encoderOneA, Map.encoderTwoA);
+    Encoder encB = new Encoder(Map.encoderOneB, Map.encoderTwoB);
     
     public void autonomous() {
-            if (vP.leftOrRight() == 1) {
+            /*if (vP.leftOrRight() == 1) {
             //if (right.getAxis(Joystick.AxisType.kY) < -.1) {
                 dT.setWheels(0, 0);
                 new Thread()
@@ -59,7 +59,12 @@ public class BallLauncher extends SimpleRobot {
             }
             if (vP.leftOrRight() == 0) {
                 dT.setWheels(0, -0);
-            }
+            }*/
+        
+        while (encA.getDistance() < 10 && encB.getDistance() < 10) {
+            dT.setWheels(1, 1);
+        }
+        
     }
 
     public void operatorControl() {

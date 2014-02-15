@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.networktables.NetworkTableKeyNotDefined;
  */
 public class VisionProcessor {
     private Relay led;
-   // private NetworkTable green;
+    private NetworkTable green;
 
     public VisionProcessor() {
         led = new Relay(Map.ledPort);
-     //   green = NetworkTable.getTable("SmartDashboard");
+        green = NetworkTable.getTable("SmartDashboard");
     }
     
     public int leftOrRight(){
@@ -38,5 +38,9 @@ public class VisionProcessor {
        //System.out.println("0");
        return 0;
        //center of camera
+    }
+    
+    public boolean highGoal() {
+        return green.getBoolean("BLOB");
     }
 }

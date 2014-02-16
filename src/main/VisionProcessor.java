@@ -43,4 +43,8 @@ public class VisionProcessor {
     public boolean highGoal() {
         return green.getBoolean("BLOB");
     }
+    
+    public void ledOn() {
+        led.set(Relay.Value.kForward);
+    }
 }

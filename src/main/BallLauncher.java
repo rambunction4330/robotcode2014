@@ -30,7 +30,7 @@ public class BallLauncher extends SimpleRobot {
     public void autonomous() {
         new Thread() {
             public void run() {
-                Timer.delay(2);
+                Timer.delay(2.25);
                 arm.forceOverride();
             }
         }.start();
@@ -40,14 +40,14 @@ public class BallLauncher extends SimpleRobot {
         encB.setDistancePerPulse(1.0/243); //243.5
         encB.setSamplesToAverage(127);
         encB.start();
-        dT.setWheels(-.5, -.5);
+        dT.setWheels(-.7, -.7);
         while (encB.getDistance() >= -7.875 && encB.getDistance() <= 7.875) {
             System.out.println("EncB Dist:" + encB.getDistance());
         }
         System.out.println("Final EncB Dist:" + encB.getDistance());
         encB.reset();
         dT.setWheels(0, 0);
-
+        Timer.delay(.75);
         while (vP.leftOrRight() == 0);
         if (vP.leftOrRight() == 1) {
             //if (right.getAxis(Joystick.AxisType.kY) < -.1) {

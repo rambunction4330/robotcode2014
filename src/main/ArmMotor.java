@@ -51,8 +51,8 @@ public class ArmMotor {
         override = false;
         while (!(lim.get() || override))
         {
-            one.set(-.7);
-            two.set(-.7);
+            one.set(-.5);
+            two.set(-.5);
         }
         one.set(0);
         two.set(0);

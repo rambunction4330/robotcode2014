@@ -22,9 +22,9 @@ public class Map {
     public static final int armRachet = 6;
     //Digital in
     public static final int shooterDownLimit = 14;
-    public static final int encoderOneA = 1;
-    public static final int encoderOneB = 2;
-    public static final int encoderTwoA = 3;
-    public static final int encoderTwoB = 4;
+    public static final int ENCODER_RIGHT_A = 1;
+    public static final int ENCODER_RIGHT_B = 2;
+    public static final int ENCODER_LEFT_A = 3;
+    public static final int ENCODER_LEFT_B = 4;
     
 }

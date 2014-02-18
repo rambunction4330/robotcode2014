@@ -28,6 +28,12 @@ public class BallLauncher extends SimpleRobot {
     Encoder encB = new Encoder(Map.ENCODER_LEFT_A, Map.ENCODER_LEFT_B);
 
     public void autonomous() {
+        //Timer.delay(1);
+        encB.reset();
+        encB.setDistancePerPulse(1.0/243); //243.5
+        encB.setSamplesToAverage(127);
+        encB.start();
+        dT.setWheels(-.7, -.7);
         new Thread() {
             public void run() {
                 Timer.delay(2.25);
@@ -35,12 +41,6 @@ public class BallLauncher extends SimpleRobot {
             }
         }.start();
         arm.setArm();
-        Timer.delay(1);
-        encB.reset();
-        encB.setDistancePerPulse(1.0/243); //243.5
-        encB.setSamplesToAverage(127);
-        encB.start();
-        dT.setWheels(-.7, -.7);
         while (encB.getDistance() >= -7.875 && encB.getDistance() <= 7.875) {
             System.out.println("EncB Dist:" + encB.getDistance());
         }
@@ -48,19 +48,20 @@ public class BallLauncher extends SimpleRobot {
         encB.reset();
         dT.setWheels(0, 0);
         Timer.delay(.75);
-        while (vP.leftOrRight() == 0);
-        if (vP.leftOrRight() == 1) {
-            //if (right.getAxis(Joystick.AxisType.kY) < -.1) {
-            dT.setWheels(0, 0);
-            arm.throwArm();
-        }
-        if (vP.leftOrRight() == 2) {
-            //if (right.getAxis(Joystick.AxisType.kY) > .1) {
-            dT.setWheels(0, 0);
-            arm.throwArm();
-        }
-        if (vP.leftOrRight() == 0) {
-            dT.setWheels(0, -0);
+        while (1 == 0 && isAutonomous() && isEnabled());//vP.leftOrRight()
+        if (isAutonomous() && isEnabled())
+        {arm.throwArm();
+           /* if (vP.leftOrRight() == 1) {
+                //if (right.getAxis(Joystick.AxisType.kY) < -.1) {
+                arm.throwArm();
+            }
+            else if (vP.leftOrRight() == 2) {
+                //if (right.getAxis(Joystick.AxisType.kY) > .1) {
+                arm.throwArm();
+            }
+            else {
+                arm.throwArm();
+            }*/
         }
 
         /*while (encA.getDistance() < 10 && encB.getDistance() < 10) {

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Watchdog;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.tables.TableKeyNotDefinedException;
 
 /**
  * @author Amanda & Shen
@@ -26,8 +27,18 @@ public class BallLauncher extends SimpleRobot {
     NetworkTable nettable = NetworkTable.getTable("SmartDashboard");
     Encoder encA = new Encoder(Map.ENCODER_RIGHT_A, Map.ENCODER_RIGHT_B);
     Encoder encB = new Encoder(Map.ENCODER_LEFT_A, Map.ENCODER_LEFT_B);
+    boolean shootAnyway;
 
     public void autonomous() {
+        shootAnyway = false;
+        //int targetAcquired = vP.leftOrRight();
+        new Thread() {
+            public void run() {
+                Timer.delay(2.5);
+                shootAnyway = true;
+            }
+        }.start();
+        while(!shootAnyway && vP.leftOrRight() == 0 && isAutonomous() && isEnabled());
         //Timer.delay(1);
         encB.reset();
         encB.setDistancePerPulse(1.0/243); //243.5
@@ -48,25 +59,17 @@ public class BallLauncher extends SimpleRobot {
         encB.reset();
         dT.setWheels(0, 0);
         Timer.delay(.75);
-        while (1 == 0 && isAutonomous() && isEnabled());//vP.leftOrRight()
-        if (isAutonomous() && isEnabled())
-        {arm.throwArm();
-           /* if (vP.leftOrRight() == 1) {
-                //if (right.getAxis(Joystick.AxisType.kY) < -.1) {
-                arm.throwArm();
-            }
-            else if (vP.leftOrRight() == 2) {
-                //if (right.getAxis(Joystick.AxisType.kY) > .1) {
-                arm.throwArm();
-            }
-            else {
-                arm.throwArm();
-            }*/
+        if (isAutonomous() && isEnabled()) {
+//            if (targetAcquired != 2) {
+//                System.out.println("No Target");
+//                Timer.delay(2);
+//            } else {
+//                System.out.println("Target was found");
+//            }
+            arm.throwArm();
         }
-
-        /*while (encA.getDistance() < 10 && encB.getDistance() < 10) {
-         dT.setWheels(1, 1);
-         }*/
+        
+        shootAnyway = false;
     }
 
     public void operatorControl() {
